@@ -1,0 +1,39 @@
+{
+  "name": "phapi/serializer-xml",
+  "description": "Serializer package containing middleware for XML serialization and deserialization",
+  "keywords": [
+    "middleware", "serializer", "xml", "phapi"
+  ],
+  "version": "1.0.0",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "homepage": "http://phapi.github.io",
+  "authors": [
+    {
+      "name": "Peter Ahinko",
+      "email": "peter@ahinko.se",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "phapi/serializer": "1.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "4.*",
+    "mockery/mockery": "0.9.*",
+    "codeclimate/php-test-reporter": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Phapi\\Middleware\\Deserializer\\Xml\\": "src/Phapi/Middleware/Deserializer/Xml/",
+      "Phapi\\Middleware\\Serializer\\Xml\\": "src/Phapi/Middleware/Serializer/Xml/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Phapi\\Tests\\Middleware\\Deserializer\\Xml\\": "tests/Phapi/Middleware/Deserializer/Yaml/",
+      "Phapi\\Tests\\Middleware\\Serializer\\Xml\\": "tests/Phapi/Middleware/Serializer/Yaml/"
+    }
+  }
+}
