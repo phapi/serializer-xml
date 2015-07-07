@@ -38,7 +38,7 @@ class Xml extends Deserializer
     public function deserialize($body)
     {
         try {
-            $xml = simplexml_load_string($body);
+            $xml = simplexml_load_string($body, 'SimpleXMLElement', LIBXML_NOWARNING);
             $array = json_decode(json_encode($xml), true);
         } catch (\Exception $e) {
             throw new BadRequest('Could not deserialize body (XML)');
