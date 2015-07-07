@@ -40,13 +40,27 @@ class Xml extends Serializer
     {
         // creating object of SimpleXMLElement
         $xml = new \SimpleXMLElement("<?xml version=\"1.0\"?><response></response>");
-        try {
-            // function call to convert array to xml
-            $this->arrayToXML($unserializedBody, $xml);
-            return $xml->asXML();
-        } catch (\Exception $e) {
+
+        // Disable errors
+        libxml_use_internal_errors(true);
+
+        // function call to convert array to xml
+        $this->arrayToXML($unserializedBody, $xml);
+
+        // Create xml string
+        $xmlString = $xml->asXML();
+
+        // Check for errors
+        if (count(libxml_get_errors()) > 0) {
+            // Clear errors
+            libxml_clear_errors();
+            // Reset error handling
+            libxml_use_internal_errors(false);
+
             throw new InternalServerError('Could not serialize content to XML');
         }
+
+        return $xmlString;
     }
 
     /**
