@@ -37,12 +37,22 @@ class Xml extends Deserializer
      */
     public function deserialize($body)
     {
-        try {
-            $xml = simplexml_load_string($body, 'SimpleXMLElement', LIBXML_NOERROR);
-            $array = json_decode(json_encode($xml), true);
-        } catch (\Exception $e) {
+        // Disable errors
+        libxml_use_internal_errors(true);
+
+        // Try and load the xml
+        $xml = simplexml_load_string($body);
+
+        // Check for errors
+        if (count(libxml_get_errors()) > 0 || null === $array = json_decode(json_encode($xml), true)) {
+            // Clear errors
+            libxml_clear_errors();
+            // Reset error handling
+            libxml_use_internal_errors(false);
+            // Throw exception
             throw new BadRequest('Could not deserialize body (XML)');
         }
+
         return $array;
     }
 }
