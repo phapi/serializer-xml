@@ -39,9 +39,7 @@ class Xml extends Deserializer
     {
         try {
             $xml = simplexml_load_string($body);
-            if (null === $array = json_decode(json_encode($xml), true)) {
-                throw new BadRequest('Could not deserialize body (XML)');
-            }
+            $array = json_decode(json_encode($xml), true);
         } catch (\Exception $e) {
             throw new BadRequest('Could not deserialize body (XML)');
         }
